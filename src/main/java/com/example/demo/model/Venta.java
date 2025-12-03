@@ -56,7 +56,6 @@ public class Venta {
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
     @JsonIgnore
-    @JsonManagedReference
     private List<LineaVenta> detalles; 
 
     @Enumerated(EnumType.STRING)

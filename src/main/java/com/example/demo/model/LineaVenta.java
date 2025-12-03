@@ -29,8 +29,6 @@ public class LineaVenta {
     
     @ManyToOne
     @JoinColumn(name = "idVenta")
-    @JsonBackReference
-    @ToString.Exclude
     @JsonIgnore
     private Venta venta;
     
