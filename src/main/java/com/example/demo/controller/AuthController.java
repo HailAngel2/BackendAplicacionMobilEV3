@@ -28,28 +28,30 @@ public class AuthController {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
-    // NOTA: ASUMIMOS que UsuarioRepository tiene el método findByUsername
-    //       (Si no existe, el proyecto fallará al compilar)
-    
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
         
-        // 1. Buscar al usuario por username
+        // 1. Ver qué usuario nos piden
+        System.out.println("--- INTENTO DE LOGIN ---");
+        System.out.println("Usuario recibido: " + loginRequest.getUsername());
+        
         Usuario usuario = usuarioRepository.findByUsername(loginRequest.getUsername())
-            .orElseThrow(() -> new RecursoNoEncontradoException("Credenciales inválidas.")); // Error 404/401
+            .orElseThrow(() -> new RecursoNoEncontradoException("Credenciales inválidas."));
 
-        // 2. Comparar la contraseña (texto plano vs. hash de la BD)
+        // 2. Ver qué contraseñas tenemos (¡Cuidado! esto mostrará la pass en logs, bórralo después)
+        System.out.println("Pass ingresada (App): " + loginRequest.getContrasena());
+        System.out.println("Hash en BD: " + usuario.getContrasena());
+
+        // 3. Ver qué dice el comparador
         boolean matches = passwordEncoder.matches(
             loginRequest.getContrasena(), 
-            usuario.getContrasena() // Contraseña hasheada de la BD
+            usuario.getContrasena()
         );
+        System.out.println("¿Coinciden?: " + matches);
+        System.out.println("------------------------");
 
         if (matches) {
-            // 3. Éxito: Devolver la información necesaria al frontend
-            
-            // Creamos un mapa o DTO de respuesta para NO exponer el hash de la contraseña
-            // En una aplicación real, se devolvería un JWT aquí.
             return ResponseEntity.ok(Map.of(
                 "message", "Login exitoso",
                 "id", usuario.getIdUsuario(),
@@ -57,7 +59,30 @@ public class AuthController {
                 "rol", usuario.getRol().toString()
             ));
         } else {
-            // 4. Fallo: Devolver error 401 Unauthorized
+            return new ResponseEntity<>("Credenciales inválidas.", HttpStatus.UNAUTHORIZED);
+        }
+    }
+    
+    
+    @PostMapping("/login/a")
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest, int a) {
+        
+        Usuario usuario = usuarioRepository.findByUsername(loginRequest.getUsername())
+            .orElseThrow(() -> new RecursoNoEncontradoException("Credenciales inválidas."));
+
+        boolean matches = passwordEncoder.matches(
+            loginRequest.getContrasena(), 
+            usuario.getContrasena()
+        );
+
+        if (matches) {
+            return ResponseEntity.ok(Map.of(
+                "message", "Login exitoso",
+                "id", usuario.getIdUsuario(),
+                "username", usuario.getUsername(),
+                "rol", usuario.getRol().toString()
+            ));
+        } else {
             return new ResponseEntity<>("Credenciales inválidas.", HttpStatus.UNAUTHORIZED);
         }
     }
