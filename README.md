@@ -58,5 +58,3 @@ POST /api/categorias → Crear nueva categoría.
 PUT /api/categorias/{id} → Editar categoría.
 
 DELETE /api/categorias/{id} → Eliminar categoría.
-
-<img width="1058" height="568" alt="image" src="https://github.com/user-attachments/assets/22616478-37ba-4d18-a878-659adba7799f" />
