@@ -37,21 +37,23 @@ public class UsuarioService {
     public Usuario updateUsuario(Long idUsuario, Usuario detallesActualizados) {
         Usuario usuarioExistente = getUsuarioById(idUsuario);
         
+        // --- CAMBIO IMPORTANTE ---
+        // Ya NO encriptamos aquí, porque el Controller ya lo hizo en el método "updatePassword".
+        // Simplemente asignamos el valor tal cual viene.
         if (detallesActualizados.getContrasena() != null && !detallesActualizados.getContrasena().isEmpty()) {
-            String hashedPassword = passwordEncoder.encode(detallesActualizados.getContrasena());
-            usuarioExistente.setContrasena(hashedPassword); 
+            usuarioExistente.setContrasena(detallesActualizados.getContrasena()); 
         } 
 
         if (detallesActualizados.getUsername() != null) {
             usuarioExistente.setUsername(detallesActualizados.getUsername());
         }
+        
         if (detallesActualizados.getDireccion() != null) {
-        usuarioExistente.setDireccion(detallesActualizados.getDireccion());
+            usuarioExistente.setDireccion(detallesActualizados.getDireccion());
         }
-        if (detallesActualizados.getContrasena() != null && !detallesActualizados.getContrasena().isEmpty()) {
-        String hashedPassword = passwordEncoder.encode(detallesActualizados.getContrasena());
-        usuarioExistente.setContrasena(hashedPassword); 
-        }
+        
+        // (Aquí tenías el bloque de contraseña repetido, lo he borrado)
+
         return usuarioRepository.save(usuarioExistente);
     }
 
@@ -68,6 +70,7 @@ public class UsuarioService {
         nuevoUsuario.setRol(registroDTO.getRol());
         nuevoUsuario.setDireccion(registroDTO.getDireccion());
         
+        // AQUÍ SÍ ENCRIPTAMOS (Porque es un usuario nuevo y viene en texto plano)
         String hashedPassword = passwordEncoder.encode(registroDTO.getContrasena());
         nuevoUsuario.setContrasena(hashedPassword);
 
