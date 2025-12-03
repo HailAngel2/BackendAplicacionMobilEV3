@@ -55,6 +55,7 @@ public class Venta {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
+    @JsonIgnore
     @JsonManagedReference
     private List<LineaVenta> detalles; 
 
