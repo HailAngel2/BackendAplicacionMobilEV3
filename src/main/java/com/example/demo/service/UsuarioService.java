@@ -36,10 +36,7 @@ public class UsuarioService {
     @Transactional
     public Usuario updateUsuario(Long idUsuario, Usuario detallesActualizados) {
         Usuario usuarioExistente = getUsuarioById(idUsuario);
-        
-        // --- CAMBIO IMPORTANTE ---
-        // Ya NO encriptamos aquí, porque el Controller ya lo hizo en el método "updatePassword".
-        // Simplemente asignamos el valor tal cual viene.
+
         if (detallesActualizados.getContrasena() != null && !detallesActualizados.getContrasena().isEmpty()) {
             usuarioExistente.setContrasena(detallesActualizados.getContrasena()); 
         } 
@@ -51,8 +48,6 @@ public class UsuarioService {
         if (detallesActualizados.getDireccion() != null) {
             usuarioExistente.setDireccion(detallesActualizados.getDireccion());
         }
-        
-        // (Aquí tenías el bloque de contraseña repetido, lo he borrado)
 
         return usuarioRepository.save(usuarioExistente);
     }
