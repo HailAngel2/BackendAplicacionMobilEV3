@@ -74,4 +74,13 @@ public class UsuarioService {
         }
         return usuarioRepository.save(nuevoUsuario);
     }
+
+    @Transactional
+    public void cambiarContrasena(Long idUsuario, String nuevaContrasenaPlana) {
+        Usuario usuario = getUsuarioById(idUsuario);
+        String hash = passwordEncoder.encode(nuevaContrasenaPlana);
+        
+        usuario.setContrasena(hash);
+        usuarioRepository.save(usuario);
+    }
 }
