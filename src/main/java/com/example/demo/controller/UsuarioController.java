@@ -33,21 +33,20 @@ public class UsuarioController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PatchMapping("/{id}/password")
+@PatchMapping("/{id}/password")
     public ResponseEntity<?> updatePassword(@PathVariable Long id, @RequestBody PasswordUpdateDTO passwordDTO) {
         
-        // 1. Buscar usuario
+        // 1. Verificar si existe el usuario
         Usuario usuario = usuarioService.getUsuarioById(id);
-        
         if (usuario == null) {
             return ResponseEntity.notFound().build();
         }
 
         // 2. Encriptar y actualizar contraseña
+        // (Si no usas PasswordEncoder, usa: usuario.setContrasena(passwordDTO.getNuevoPassword()); )
         usuario.setContrasena(passwordEncoder.encode(passwordDTO.getNuevoPassword()));
-        
-        // 3. Guardar cambios
-        usuarioService.updateUsuario(id, usuario);
+
+        usuarioService.updateUsuario(id, usuario); 
 
         return ResponseEntity.ok().body("{\"message\": \"Contraseña actualizada correctamente\"}");
     }
@@ -59,7 +58,6 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getById(@PathVariable Long id) {
-        // En una aplicación real, se usaría un DTO para no exponer la contraseña.
         return ResponseEntity.ok(usuarioService.getUsuarioById(id));
     }
 
