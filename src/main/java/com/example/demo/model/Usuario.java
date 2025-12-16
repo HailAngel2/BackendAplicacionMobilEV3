@@ -39,6 +39,12 @@ public class Usuario{
     @Column(name = "direccion", length = 100, nullable = false)
     private String direccion;
 
+    @Column(length = 100, nullable = false, unique = true)
+    private String correo;
+
+    @Column(name = "codigoRecuperacion")
+    private String codigoRecuperacion;
+
     @OneToMany(mappedBy = "usuario")
     @JsonIgnore
     private List<Venta> ventas;

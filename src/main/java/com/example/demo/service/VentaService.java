@@ -66,7 +66,7 @@ public class VentaService {
         double totalNetoAcumulado = 0.0;
         
         // --- 3. Procesar, Validar Stock y Calcular Detalles ---
-        for (LineaVentaDTO lineaDTO : ventaDTO.getLineas()) { // <--- Asumo que usas getLineas()
+        for (LineaVentaDTO lineaDTO : ventaDTO.getLineas()) {
         
         // CORRECCIÓN 2: Llama al nuevo método en ProductoService para validar y obtener precio
         Producto producto = productoService.validarStockYObtenerProducto(
@@ -88,7 +88,6 @@ public class VentaService {
         totalNetoAcumulado += subtotal;
         lineasVenta.add(linea);
         
-        // CORRECCIÓN 3: Descontar Stock ahora en ProductoService
         productoService.descontarStock(producto.getIdProducto(), linea.getCantidad()); 
     }
 
@@ -103,7 +102,6 @@ public class VentaService {
         return ventaRepository.save(nuevaVenta);
     }
     
-    //Lógica simple para generar el siguiente número de folio.
    
     private Long generarNuevoFolio() {
         return ventaRepository.findLastFolio()
