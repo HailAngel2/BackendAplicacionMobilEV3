@@ -36,7 +36,7 @@ public class AuthController {
     private EmailService emailService;
     
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest, int a) {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDTO loginRequest) {
         
         Usuario usuario = usuarioRepository.findByUsername(loginRequest.getUsername())
             .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado."));
