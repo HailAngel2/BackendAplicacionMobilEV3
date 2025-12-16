@@ -8,4 +8,5 @@ public class RegistroRequestDTO {
     private String contrasena;
     private ENUMRolUsuario rol;
     private String direccion;
+    private String correo;
 }

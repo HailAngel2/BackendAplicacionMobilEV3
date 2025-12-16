@@ -64,6 +64,7 @@ public class UsuarioService {
         nuevoUsuario.setUsername(registroDTO.getUsername());
         nuevoUsuario.setRol(registroDTO.getRol());
         nuevoUsuario.setDireccion(registroDTO.getDireccion());
+        nuevoUsuario.setCorreo(registroDTO.getCorreo());
         
         // AQUÍ SÍ ENCRIPTAMOS (Porque es un usuario nuevo y viene en texto plano)
         String hashedPassword = passwordEncoder.encode(registroDTO.getContrasena());
