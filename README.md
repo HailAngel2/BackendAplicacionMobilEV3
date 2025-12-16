@@ -12,7 +12,7 @@ Aplicación móvil nativa para la gestión y venta de productos de ferretería. 
 
 ### Funcionalidades Principales
 * **Autenticación y Seguridad:** Login con validación de credenciales y manejo de sesiones.
-* **4 Roles de Usuario con vistas diferenciadas:**
+* **2 Roles de Usuario con vistas diferenciadas:**
     * **Administrador:** Gestión total (CRUD) de productos.
     * **Cliente:** Catálogo, carrito de compras y precios estándar.
 * **Catálogo Interactivo:** Listado de productos por categorías (Electricidad, Gasfitería, Herramientas).
