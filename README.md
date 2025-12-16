@@ -42,7 +42,7 @@ El backend gestiona la lógica de negocio y la base de datos PostgreSQL.
 ---
 
 **User:**Admin1
-**Password:** Admin1*
+**Password:** Admin1 (añadir un asterisco al final de la contraseña)
 
 ---
 
