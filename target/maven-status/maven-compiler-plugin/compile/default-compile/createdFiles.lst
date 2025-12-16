@@ -1,3 +1,4 @@
+com\example\demo\service\EmailService.class
 com\example\demo\DemoApplication.class
 com\example\demo\model\Usuario.class
 com\example\demo\repository\CategoriaRepository.class
@@ -33,6 +34,7 @@ com\example\demo\controller\UsuarioController.class
 com\example\demo\dto\DetalleVentaDTO.class
 com\example\demo\model\ENUMEstadoVenta.class
 com\example\demo\dto\PasswordUpdateDTO.class
+com\example\demo\dto\RecuperacionDTO.class
 com\example\demo\repository\VentaRepository.class
 com\example\demo\dto\LoginRequestDTO.class
 com\example\demo\exception\StockException.class
